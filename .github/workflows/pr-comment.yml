@@ -1,0 +1,27 @@
+name: 'Automatischer PR-Kommentar'
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  add_comment:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Füge automatischen Kommentar hinzu
+        uses: mshick/add-pr-comment@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          message: |
+            👋 **Vielen Dank** für das Öffnen dieses Pull Requests, **@${{ github.event.pull_request.user.login }}**!
+
+            Wir haben Ihren Beitrag erhalten und werden ihn in Kürze überprüfen.
+
+            Bitte stellen Sie sicher, dass Sie:
+            * [ ] Die **Tests** lokal ausgeführt haben.
+            * [ ] Die **Dokumentation** bei Bedarf aktualisiert haben.
+            * [ ] Eine aussagekräftige **Beschreibung** hinzugefügt haben.
+
+            [Weitere Infos zu unseren Beitrag-Richtlinien](https://example.com/contribution-guidelines)
